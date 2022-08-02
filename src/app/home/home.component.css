@@ -1,0 +1,27 @@
+.link {
+  background-color: blue !important;
+}
+.pointer {
+  cursor: pointer !important;
+}
+.delete
+{
+    color: red;
+    cursor: pointer;
+}
+.edit
+{
+    color: #17a2b8;
+    cursor: pointer;
+}
+.note{
+    box-shadow: 5px 5px 7px rgb(33 33 33 / 80%);
+    cursor: pointer;
+    background-color: grey; 
+    /* the initial color */
+}
+h4
+{
+    font-size: 2rem;
+    font-weight: bold;
+}

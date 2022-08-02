@@ -1,0 +1,73 @@
+<div id="particles-js" class="vh-100 position-relative ">
+    <form class="position-absolute  top-50 start-50 translate-middle" [formGroup]="registerform" (ngSubmit)="submitForm()">
+        <div class="row">
+            <div *ngIf="errormessage" class="col-12 error m-auto my-3 alert alert-danger">{{errormessage}}</div>
+        </div>
+        <div class="row ">
+            <div class="col-6 ">
+                <input  [class.is-valid]="!registerform.get('first_name')?.errors" [class.is-invalid]="registerform.get('first_name')?.touched&&registerform.get('first_name')?.errors" type="text" placeholder="Enter First Name" class="form-control " formControlName="first_name">
+                <div *ngIf="registerform.get('first_name')?.touched && registerform.get('first_name')?.errors">
+                    <div *ngIf="registerform.get('first_name')?.getError('minlength')" class="alert alert-danger">min length is 3 letters</div>
+                    <div *ngIf="registerform.get('first_name')?.getError('maxlength')" class="alert alert-danger">max length is 10 letters</div>
+                    <div *ngIf="registerform.get('first_name')?.getError('required')" class="alert alert-danger">first name is required</div>
+                </div>
+            </div>
+            <div class="col-6 ">
+                <input type="text"[class.is-valid]="!registerform.get('last_name')?.errors" [class.is-invalid]="registerform.get('last_name')?.touched&&registerform.get('last_name')?.errors"  placeholder="Enter Last Name" class="form-control" formControlName="last_name">
+                <div *ngIf="registerform.get('last_name')?.touched && registerform.get('last_name')?.errors">
+                    <div *ngIf="registerform.get('last_name')?.getError('minlength')" class="alert alert-danger">min length is 3 letters</div>
+                    <div *ngIf="registerform.get('last_name')?.getError('maxlength')" class="alert alert-danger">max length is 10 letters</div>
+                    <div *ngIf="registerform.get('last_name')?.getError('required')" class="alert alert-danger">first name is required</div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <input type="text" [class.is-valid]="!registerform.get('email')?.errors" [class.is-invalid]="registerform.get('email')?.touched&&registerform.get('email')?.errors" placeholder="Enter Your Email" class="form-control" formControlName="email">
+                <div *ngIf="registerform.get('email')?.touched && registerform.get('email')?.errors">
+                    <div *ngIf="registerform.get('email')?.getError('email')" class="alert alert-danger">this should be an email</div>
+                    <div *ngIf="registerform.get('email')?.getError('required')" class="alert alert-danger">email is required</div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <input [class.is-valid]="!registerform.get('age')?.errors&&registerform.get('age')?.touched" [class.is-invalid]="registerform.get('age')?.touched&&registerform.get('age')?.errors" type="number" placeholder="Enter Your Age" class="form-control" formControlName="age">
+                <div *ngIf="registerform.get('age')?.touched && registerform.get('age')?.errors">
+                    <div *ngIf="registerform.get('age')?.getError('min')" class="alert alert-danger">min is 10 years</div>
+                    <div *ngIf="registerform.get('age')?.getError('max')" class="alert alert-danger">max is 50 years</div>
+                    <div *ngIf="registerform.get('age')?.getError('required')" class="alert alert-danger">Age required</div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <input [class.is-valid]="!registerform.get('password')?.errors" [class.is-invalid]="registerform.get('password')?.touched&&registerform.get('password')?.errors" type="password" placeholder="****" class="form-control" formControlName="password">
+                <div *ngIf="registerform.get('password')?.errors&&registerform.get('password')?.touched">
+                    <div *ngIf="registerform.get('password')?.getError('required')"class="alert alert-danger">the password is required</div>
+                    <div *ngIf="registerform.get('password')?.getError('pattern')" class="alert alert-danger">
+                    <ul>
+                        <li>pasword should have 1 lowercase letter</li>
+                        <li>pasword should have 1 uppercase letter</li>
+                        <li>pasword should have 1 number </li>
+                        <li>and be at least 8 characters long</li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+            <button
+              class="w-100 btn btn-primary text-capitalize"
+              [disabled]="registerform.invalid"
+              type="submit"
+            >
+            <span *ngIf="!isloading">{{wordOfSubmit}}</span>
+              <span *ngIf="isloading">
+                  <span class="mx-2">{{wordOfSubmit}}</span>
+                <i class="fas fa-spin fa-spinner fs-6"></i>
+              </span>
+            </button>
+            <!-- property binding in the disabled -->
+            <!-- this helps with the submit without the click like: Enter -->
+          </div>
+
+        <div class="text-center my-3">
+            <a class="text-white text-capitalize" (click)="gotologin()">already have an account ? log in...</a>
+        </div>
+    </form>
+</div>

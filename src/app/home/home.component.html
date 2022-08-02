@@ -1,0 +1,220 @@
+<div class="row my-5 ">
+  <div class="col-12 m-3 d-flex justify-content-center">
+    <button
+      type="button"
+      class="btn btn-info  text-capitalize"
+      data-bs-toggle="modal"
+      data-bs-target="#addnote"
+    >
+      add note
+    </button>
+  </div>
+  <div class="col-md-3 col-6 gy-2"  *ngFor="let note of notesArr">
+    <div  id={{note._id}} (click)="changecolor($event,note._id)" class="py-1 note text-center">
+      <div class="row">
+        <div class="col-12">
+          <div class="dropdown">
+            <i
+              id="dropdownMenuButton"
+              class="fa-solid pointer fs-2 fa-ellipsis-vertical float-end mx-3 my-2"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            ></i>
+            <ul class="dropdown-menu" >
+              <li>
+                <a
+                  class="dropdown-item delete"
+                  data-bs-toggle="modal"
+                  data-bs-target="#deletenote"
+                  (click)="delete(note._id)"
+                  >Delete
+                  <span class="float-end"
+                    ><i class="fa-solid fa-trash"></i
+                  ></span>
+                </a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a
+                  class="dropdown-item edit"
+                  (click)="edit(note._id)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editnote"
+                  >Edit
+                  <span class="float-end"
+                    ><i class="fas fa-pen-square float-right"></i
+                  ></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <h4 class="text-truncate text-white px-3">{{ note.title }}</h4>
+        <p class="text-truncate text-white px-3">{{ note.desc }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD Note Modal -->
+<div
+  class="modal fade"
+  id="addnote"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addform" (ngSubmit)="addNote()">
+          <input
+            formControlName="title"
+            type="text"
+            class="form-control mb-3"
+            placeholder="Title"
+          />
+          <textarea
+            formControlName="desc"
+            class="form-control my-3"
+            cols="30"
+            rows="5"
+            placeholder="Take Your Note"
+          ></textarea>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              [disabled]="!addform.valid"
+              class="btn btn-info"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              id="cancel"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <!-- the footer must be inside the form because it contains the button of type submit -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Note modal -->
+<div
+  class="modal fade"
+  id="deletenote"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-center">
+        <p class="text-info">Do you really want to delete ?</p>
+        <p class="text-info">process cannot be undone</p>
+      </div>
+      <div class="modal-footer">
+        <button (click)="deleteNote()" class="btn btn-danger">Delete</button>
+        <button
+          type="button"
+          id="canceldel"
+          class="btn btn-info"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- edit modal -->
+<div
+  class="modal fade"
+  id="editnote"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-center">
+        <form [formGroup]="editform" (ngSubmit)="updateNote()">
+          <input
+            formControlName="title"
+            type="text"
+            class="form-control mb-3"
+            placeholder="Title"
+          />
+          <textarea
+            formControlName="desc"
+            class="form-control my-3"
+            cols="30"
+            rows="5"
+            placeholder="Take Your Note"
+          ></textarea>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              [disabled]="!editform.valid"
+              class="btn btn-info"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              id="canceledit"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <!-- the footer must be inside the form because it contains the button of type submit -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <h3 [ngStyle]="noteStyle" class="text-center  text-white my-5">this yousef osama</h3> -->
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

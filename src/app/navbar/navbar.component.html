@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg bg-dark ">
+  <div class="container">
+    <i class="far fa-sticky-note text-white fs-5 mx-2"></i>
+    <a class="navbar-brand text-white">Notes</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav text-center ms-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-white"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span *ngIf="!islogin">Login</span>
+            <span *ngIf="islogin">Logout</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngIf="!islogin">
+              <a class="dropdown-item text-capitalize" routerLink="signup"
+                >sign up</a
+              >
+            </li>
+            <li *ngIf="!islogin"><hr class="dropdown-divider" /></li>
+            <li *ngIf="!islogin">
+              <a class="dropdown-item text-capitalize" routerLink="signin"
+                >sign in</a
+              >
+              <li *ngIf="islogin" (click)="logout()">
+                <a class="dropdown-item text-capitalize" routerLink="signin"
+                  >Logout</a
+                >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

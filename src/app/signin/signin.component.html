@@ -1,0 +1,100 @@
+<div id="particles-js" class="vh-100 position-relative">
+  <form
+    class="position-absolute top-50 start-50 translate-middle"
+    [formGroup]="loginform"
+    (ngSubmit)="submitForm()"
+  >
+    <div class="row">
+      <div
+        *ngIf="errormessage"
+        class="col-12 error m-auto my-3 alert alert-danger"
+      >
+        {{ errormessage }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mt-3">
+        <input
+          type="text"
+          [class.is-valid]="!loginform.get('email')?.errors"
+          [class.is-invalid]="
+            loginform.get('email')?.touched && loginform.get('email')?.errors
+          "
+          placeholder="Enter Your Email"
+          class="form-control"
+          formControlName="email"
+        />
+        <div
+          *ngIf="
+            loginform.get('email')?.touched && loginform.get('email')?.errors
+          "
+        >
+          <div
+            *ngIf="loginform.get('email')?.getError('email')"
+            class="alert alert-danger"
+          >
+            this should be an email
+          </div>
+          <div
+            *ngIf="loginform.get('email')?.getError('required')"
+            class="alert alert-danger"
+          >
+            email is required
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-3">
+        <input
+          [class.is-valid]="!loginform.get('password')?.errors"
+          [class.is-invalid]="
+            loginform.get('password')?.touched &&
+            loginform.get('password')?.errors
+          "
+          type="password"
+          placeholder="****"
+          class="form-control"
+          formControlName="password"
+        />
+        <div
+          *ngIf="
+            loginform.get('password')?.errors &&
+            loginform.get('password')?.touched
+          "
+        >
+          <div
+            *ngIf="loginform.get('password')?.getError('required')"
+            class="alert alert-danger"
+          >
+            the password is required
+          </div>
+          <div
+            *ngIf="loginform.get('password')?.getError('pattern')"
+            class="alert alert-danger"
+          >
+            <ul>
+              <li>pasword should have 1 lowercase letter</li>
+              <li>pasword should have 1 uppercase letter</li>
+              <li>pasword should have 1 number</li>
+              <li>and be at least 8 characters long</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3">
+      <button
+        class="w-100 btn btn-primary text-capitalize"
+        [disabled]="loginform.invalid"
+        type="submit"
+      >
+      <span *ngIf="!isloading">{{wordOfSubmit}}</span>
+        <span *ngIf="isloading" >
+            <span class="mx-2">{{wordOfSubmit}}</span>
+          <i class="fas fa-spin fa-spinner fs-6"></i>
+        </span>
+      </button>
+      <!-- property binding in the disabled -->
+      <!-- this helps with the submit without the click like: Enter -->
+    </div>
+  </form>
+</div>
