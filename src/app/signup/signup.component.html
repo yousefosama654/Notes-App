@@ -4,7 +4,7 @@
             <div *ngIf="errormessage" class="col-12 error m-auto my-3 alert alert-danger">{{errormessage}}</div>
         </div>
         <div class="row ">
-            <div class="col-6 text-truncate ">
+            <div class="col-6 ">
                 <input  [class.is-valid]="!registerform.get('first_name')?.errors" [class.is-invalid]="registerform.get('first_name')?.touched&&registerform.get('first_name')?.errors" type="text" placeholder="Enter First Name" class="form-control " formControlName="first_name">
                 <div *ngIf="registerform.get('first_name')?.touched && registerform.get('first_name')?.errors">
                     <div *ngIf="registerform.get('first_name')?.getError('minlength')" class="alert alert-danger">min length is 3 letters</div>
@@ -12,7 +12,7 @@
                     <div *ngIf="registerform.get('first_name')?.getError('required')" class="alert alert-danger">first name is required</div>
                 </div>
             </div>
-            <div class="col-6 text-truncate ">
+            <div class="col-6 ">
                 <input type="text"[class.is-valid]="!registerform.get('last_name')?.errors" [class.is-invalid]="registerform.get('last_name')?.touched&&registerform.get('last_name')?.errors"  placeholder="Enter Last Name" class="form-control" formControlName="last_name">
                 <div *ngIf="registerform.get('last_name')?.touched && registerform.get('last_name')?.errors">
                     <div *ngIf="registerform.get('last_name')?.getError('minlength')" class="alert alert-danger">min length is 3 letters</div>

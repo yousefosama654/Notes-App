@@ -11,3 +11,6 @@ a:hover
     text-decoration: underline;
     cursor: pointer;
 }
+input:placeholder-shown {
+    text-overflow: ellipsis;
+  }
