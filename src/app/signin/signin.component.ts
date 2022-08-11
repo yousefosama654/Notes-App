@@ -41,11 +41,11 @@ export class SigninComponent implements OnInit {
            this._AuthService.saveuserdata();
            this._Router.navigate(["/home"]);
           localStorage.setItem("id",response.user._id)
-          this.wordOfSubmit = 'sign up';
+          this.wordOfSubmit = 'login';
           this.isloading = false;
         } else {
           this.errormessage = response.message;
-          this.wordOfSubmit = 'sign up';
+          this.wordOfSubmit = 'login';
           this.isloading = false;
         }
       });
