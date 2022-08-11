@@ -17,11 +17,11 @@ export class SignupComponent implements OnInit {
     first_name: new FormControl(null, [
       Validators.required,
       Validators.maxLength(10),
-      Validators.minLength(2),
+      Validators.minLength(3),
     ]),
     last_name: new FormControl(null, [
       Validators.required,
-      Validators.minLength(2),
+      Validators.minLength(3),
       Validators.maxLength(10),
     ]),
     email: new FormControl(null, [Validators.required, Validators.email]),
@@ -38,6 +38,21 @@ export class SignupComponent implements OnInit {
     ]),
     // pattern should have 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long
   });
+  type:string="password"
+  visible:boolean=false;
+  view()
+  {
+    if(this.type=="password")
+    {
+      this.type='text';
+      this.visible=true;
+    }
+    else
+    {
+      this.type='password';
+      this.visible=false;
+    }
+  }
   submitForm() {
     if (this.registerform.valid) {
       this.wordOfSubmit = 'wating';

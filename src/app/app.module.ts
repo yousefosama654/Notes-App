@@ -10,8 +10,9 @@ import { SigninComponent } from './signin/signin.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { FindPipe } from './find.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,8 +21,9 @@ import { NotfoundComponent } from './notfound/notfound.component';
     HomeComponent,
     NavbarComponent,
     NotfoundComponent,
+    FindPipe
   ],
-  imports: [BrowserModule, AppRoutingModule,BrowserAnimationsModule,NgxSpinnerModule,HttpClientModule,ReactiveFormsModule ],
+  imports: [BrowserModule, AppRoutingModule,BrowserAnimationsModule,NgxSpinnerModule,HttpClientModule,ReactiveFormsModule,FormsModule ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,6 @@
 <div id="particles-js" class="vh-100 position-relative">
   <form
-    class="position-absolute top-50 start-50 translate-middle"
+    class="position-absolute top-50 start-50 translate-middle w-75"
     [formGroup]="loginform"
     (ngSubmit)="submitForm()"
   >
@@ -43,18 +43,27 @@
           </div>
         </div>
       </div>
-      <div class="col-12 mt-3">
+      <div class="col-12 mt-3 input-group ">
+        <span  class="input-group-text " (click)="view()">
+          <span *ngIf="!visible">
+            <i  class="fa-solid fa-eye"></i>
+          </span>
+          <span *ngIf="visible">
+            <i  class="fa-solid fa-eye-slash"></i>
+          </span>
+        </span>
         <input
           [class.is-valid]="!loginform.get('password')?.errors"
           [class.is-invalid]="
             loginform.get('password')?.touched &&
             loginform.get('password')?.errors
           "
-          type="password"
+          [type]="type"
           placeholder="****"
           class="form-control"
           formControlName="password"
-        />
+          />
+        </div>
         <div
           *ngIf="
             loginform.get('password')?.errors &&
@@ -79,7 +88,6 @@
             </ul>
           </div>
         </div>
-      </div>
     </div>
     <div class="mt-3">
       <button

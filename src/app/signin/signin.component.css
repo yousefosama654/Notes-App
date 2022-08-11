@@ -1,1 +1,28 @@
+.eye
+{
+    top: 18%;
+    left: 10%;
+}
+.eye:hover
+{
+    cursor: pointer;
+}
+@media (min-width:993px) and (max-width:1208px) {
+    .eye
+    {
+        left: 95%;
+    } 
+}
 
+@media (min-width:766px) and  (max-width:992px) {
+    .eye
+    {
+        left: 90%;
+    } 
+}
+@media (max-width:765px) {
+    .eye
+    {
+        left: 90%;
+    } 
+}

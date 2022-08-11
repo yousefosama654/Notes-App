@@ -1,5 +1,5 @@
 <div id="particles-js" class="vh-100 position-relative ">
-    <form class="position-absolute  top-50 start-50 translate-middle" [formGroup]="registerform" (ngSubmit)="submitForm()">
+    <form class="position-absolute  top-50 start-50 w-75 translate-middle" [formGroup]="registerform" (ngSubmit)="submitForm()">
         <div class="row">
             <div *ngIf="errormessage" class="col-12 error m-auto my-3 alert alert-danger">{{errormessage}}</div>
         </div>
@@ -35,18 +35,26 @@
                     <div *ngIf="registerform.get('age')?.getError('required')" class="alert alert-danger">Age required</div>
                 </div>
             </div>
-            <div class="col-12 mt-3">
-                <input [class.is-valid]="!registerform.get('password')?.errors" [class.is-invalid]="registerform.get('password')?.touched&&registerform.get('password')?.errors" type="password" placeholder="****" class="form-control" formControlName="password">
-                <div *ngIf="registerform.get('password')?.errors&&registerform.get('password')?.touched">
-                    <div *ngIf="registerform.get('password')?.getError('required')"class="alert alert-danger">the password is required</div>
-                    <div *ngIf="registerform.get('password')?.getError('pattern')" class="alert alert-danger">
-                    <ul>
-                        <li>pasword should have 1 lowercase letter</li>
-                        <li>pasword should have 1 uppercase letter</li>
-                        <li>pasword should have 1 number </li>
-                        <li>and be at least 8 characters long</li>
-                    </ul>
-                    </div>
+            <div class="col-12 input-group mt-3">
+                <span  class="input-group-text " (click)="view()">
+                    <span *ngIf="!visible">
+                      <i  class="fa-solid fa-eye"></i>
+                    </span>
+                    <span *ngIf="visible">
+                      <i  class="fa-solid fa-eye-slash"></i>
+                    </span>
+                  </span>
+                <input [class.is-valid]="!registerform.get('password')?.errors" [class.is-invalid]="registerform.get('password')?.touched&&registerform.get('password')?.errors" [type]="type" placeholder="****" class="form-control" formControlName="password">
+            </div>
+            <div *ngIf="registerform.get('password')?.errors&&registerform.get('password')?.touched">
+                <div *ngIf="registerform.get('password')?.getError('required')"class="alert alert-danger">the password is required</div>
+                <div *ngIf="registerform.get('password')?.getError('pattern')" class="alert alert-danger">
+                <ul>
+                    <li>pasword should have 1 lowercase letter</li>
+                    <li>pasword should have 1 uppercase letter</li>
+                    <li>pasword should have 1 number </li>
+                    <li>and be at least 8 characters long</li>
+                </ul>
                 </div>
             </div>
         </div>

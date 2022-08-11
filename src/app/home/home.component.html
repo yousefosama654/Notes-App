@@ -1,58 +1,87 @@
-<div class="row my-5 ">
-  <div class="col-12 m-3 d-flex justify-content-center">
-    <button
+<div class=" my-5 ">
+  <div class="row my-3  justify-content-between">
+    <div class="col-6">
+      <button
+
+      (click)="deleteall()"
+        type="button"
+        class="btn btn-danger  text-capitalize"
+      >
+        delete all
+      </button>
+    </div>
+    <div class="col-6">
+      <button
       type="button"
-      class="btn btn-info  text-capitalize"
+      class="btn float-end btn-info  text-capitalize"
       data-bs-toggle="modal"
       data-bs-target="#addnote"
-    >
+      >
       add note
     </button>
   </div>
-  <div class="col-md-3 col-6 gy-2"  *ngFor="let note of notesArr">
-    <div  id={{note._id}} (click)="changecolor($event,note._id)" class="py-1 note text-center">
-      <div class="row">
-        <div class="col-12">
-          <div class="dropdown">
-            <i
-              id="dropdownMenuButton"
-              class="fa-solid pointer fs-2 fa-ellipsis-vertical float-end mx-3 my-2"
+  <div class="row my-5 justify-content-center"> 
+    <form [formGroup]="searchform" class="w-75">
+          <div class="col-6 input-group ">
+          <input [(ngModel)]="term" type="text" class="form-control " formControlName="searchbar"  placeholder="Search Note" >
+          <span class="input-group-text cancelsearch" (click)="cancelsearch()">
+            <i class="fa-solid fa-xmark"></i>
+          </span>
+        </div>
+    </form>
+    </div>
+  </div>
+  <div *ngIf="!notesfound" class="row justify-content-center">
+    <div class="col-6 alert alert-info text-capitalize">
+      no notes found
+    </div>
+  </div>
+  <div *ngIf="notesfound" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
+    <div class="col" *ngFor="let note of notesArr|find:term">
+      <div class="card">
+        <div class="d-flex card-header justify-content-between">
+          <h5 class="card-title fw-bold text-capitalize text-truncate my-2">{{note.title}}</h5>
+            <div class="dropdown my-2">
+              <span
+              type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-            ></i>
-            <ul class="dropdown-menu" >
-              <li>
-                <a
-                  class="dropdown-item delete"
-                  data-bs-toggle="modal"
-                  data-bs-target="#deletenote"
-                  (click)="delete(note._id)"
-                  >Delete
-                  <span class="float-end"
-                    ><i class="fa-solid fa-trash"></i
-                  ></span>
-                </a>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a
-                  class="dropdown-item edit"
-                  (click)="edit(note._id)"
-                  data-bs-toggle="modal"
-                  data-bs-target="#editnote"
-                  >Edit
-                  <span class="float-end"
-                    ><i class="fas fa-pen-square float-right"></i
-                  ></span>
-                </a>
-              </li>
-            </ul>
-          </div>
+              class="px-2 btn-dropdown"
+            >
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </span>
+                <ul class="dropdown-menu shadow">
+                  <li>
+                    <a
+                      class="dropdown-item delete"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deletenote"
+                      (click)="delete(note._id)"
+                      >Delete
+                      <span class="float-end"
+                        ><i class="fa-solid fa-trash"></i
+                      ></span>
+                    </a>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a
+                      class="dropdown-item edit"
+                      (click)="edit(note._id)"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editnote"
+                      >Edit
+                      <span class="float-end"
+                        ><i class="fas fa-pen-square float-right"></i
+                      ></span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
         </div>
-      </div>
-      <div class="col-12">
-        <h4 class="text-truncate text-white px-3">{{ note.title }}</h4>
-        <p class="text-truncate text-white px-3">{{ note.desc }}</p>
+        <div class="card-body">
+          <p class="card-text  text-truncate">{{note.desc}}.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -98,7 +127,8 @@
               [disabled]="!addform.valid"
               class="btn btn-info"
             >
-              Add
+              {{adding}}
+              <span *ngIf="flag"><i class="fas fa-spin fa-spinner"></i></span>
             </button>
             <button
               type="button"
@@ -139,7 +169,10 @@
         <p class="text-info">process cannot be undone</p>
       </div>
       <div class="modal-footer">
-        <button (click)="deleteNote()" class="btn btn-danger">Delete</button>
+        <button (click)="deleteNote()" class="btn btn-danger">
+          {{deleting}}
+          <span *ngIf="flag"><i class="fas fa-spin fa-spinner"></i></span>
+        </button>
         <button
           type="button"
           id="canceldel"
@@ -190,9 +223,10 @@
             <button
               type="submit"
               [disabled]="!editform.valid"
-              class="btn btn-info"
+              class="btn btn-warning"
             >
-              Update
+            {{editing}}
+            <span *ngIf="flag"><i class="fas fa-spin fa-spinner"></i></span>
             </button>
             <button
               type="button"
@@ -209,7 +243,6 @@
     </div>
   </div>
 </div>
-<!-- <h3 [ngStyle]="noteStyle" class="text-center  text-white my-5">this yousef osama</h3> -->
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
   size="medium"

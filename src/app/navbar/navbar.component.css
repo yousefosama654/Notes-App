@@ -4,3 +4,9 @@
   line-height: 2rem;
 }
 
+.navbar-toggler:focus
+{
+  border: none !important;
+  box-shadow: none !important;
+  outline: unset !important;
+}

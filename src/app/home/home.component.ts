@@ -14,16 +14,30 @@ export class HomeComponent implements OnInit {
     title: new FormControl(null, [Validators.required]),
     desc: new FormControl(null, [Validators.required]),
   });
+  searchform:FormGroup=new FormGroup(
+    {
+      searchbar:new FormControl(null),
+    }
+  )
   editform: FormGroup = new FormGroup({
     title: new FormControl(null, [Validators.required]),
     desc: new FormControl(null, [Validators.required]),
   });
   notesArr: Array<any> = [];
+  notesfound:boolean=false;
   noteID: any;
+  term:string='';
   r = Math.random() * 255;
   g = Math.random() * 255;
   b = Math.random() * 255;
+  adding:string="add";
+  editing:string="edit";
+  deleting:string="delete"
+  flag:boolean=false;
+  width:number=window.innerWidth;
   addNote() {
+    this.adding="working";
+    this.flag=true;
     let obj = {
       title: this.addform.value.title,
       desc: this.addform.value.desc,
@@ -31,9 +45,15 @@ export class HomeComponent implements OnInit {
       token: localStorage.getItem('token'),
     };
     this._NotesService.addnote(obj).subscribe((response) => {
+      this.adding="add";
+      this.flag=false;
       this.displayNote();
       // to display if you add another note
       (document.getElementById('cancel') as HTMLElement).click();
+      this.addform.reset();
+      // another method to get it all empty
+      // this.addform.controls['title'].setValue("");
+      // this.addform.controls['desc'].setValue("");  
     });
   }
   displayNote() {
@@ -44,6 +64,18 @@ export class HomeComponent implements OnInit {
     this._NotesService.getnote(obj).subscribe((response) => {
       if (response.message == 'success') {
         this.notesArr = response.Notes;
+        if(this.notesArr.length<1)
+        {
+          this.notesfound=false;
+          this.notesArr=[];
+        }
+        else
+        this.notesfound=true;
+      }
+      else
+      {
+        this.notesArr=[];
+        this.notesfound=false;
       }
     });
     setTimeout(() => {
@@ -62,6 +94,8 @@ export class HomeComponent implements OnInit {
     }
   }
   updateNote() {
+    this.editing="working";
+    this.flag=true;
     let obj = {
       title: this.editform.value.title,
       desc: this.editform.value.desc,
@@ -72,6 +106,8 @@ export class HomeComponent implements OnInit {
       if (response.message == 'updated') {
         (document.getElementById('canceledit') as HTMLElement).click();
         this.displayNote();
+        this.editing="edit";
+        this.flag=false;
       }
     });
   }
@@ -80,6 +116,8 @@ export class HomeComponent implements OnInit {
     $('.dropdown-menu').dropdown('hide');
   }
   deleteNote() {
+    this.deleting="working";
+    this.flag=true;
     let obj = {
       NoteID: this.noteID,
       token: localStorage.getItem('token'),
@@ -88,8 +126,23 @@ export class HomeComponent implements OnInit {
       if (response.message == 'deleted') {
         document.getElementById('canceldel')?.click();
         this.displayNote();
+        this.deleting="delete";
+        this.flag=false;
       }
     });
+  }
+  deleteall() {
+    this.spinner.show();
+    for( let note of this.notesArr)
+    {
+      this.delete(note._id);
+      this.deleteNote();
+    }
+  }
+  cancelsearch()
+  {
+    this.searchform.reset();
+    this.term='';
   }
   constructor(
     private _AuthService: AuthService,
@@ -108,5 +161,7 @@ export class HomeComponent implements OnInit {
     (
       document.getElementById(`${id}`) as HTMLElement
     ).style.backgroundColor = `rgb(${this.r},${this.g},${this.b}) `;
+    $('.dropdown-menu').dropdown('hide');
   }
+  
 }

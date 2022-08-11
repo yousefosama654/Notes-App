@@ -16,6 +16,21 @@ export class SigninComponent implements OnInit {
   errormessage: string = '';
   wordOfSubmit: string = 'login';
   isloading: boolean = false;
+  type:string="password"
+  visible:boolean=false;
+  view()
+  {
+    if(this.type=="password")
+    {
+      this.type='text';
+      this.visible=true;
+    }
+    else
+    {
+      this.type='password';
+      this.visible=false;
+    }
+  }
   submitForm() {
     if (this.loginform.valid) {
       this.wordOfSubmit = 'wating';
