@@ -22,7 +22,11 @@ export class RoutingGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this._AuthService.userdata.getValue()) return true;
+    if (this._AuthService.userdata.getValue()) 
+    {
+      // this._Router.navigate(['/home']);
+      return true;
+    } 
     else {
       this._Router.navigate(['/signup']);
       return false;

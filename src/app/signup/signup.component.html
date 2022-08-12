@@ -17,7 +17,7 @@
                 <div *ngIf="registerform.get('last_name')?.touched && registerform.get('last_name')?.errors">
                     <div *ngIf="registerform.get('last_name')?.getError('minlength')" class="alert alert-danger">min length is 3 letters</div>
                     <div *ngIf="registerform.get('last_name')?.getError('maxlength')" class="alert alert-danger">max length is 10 letters</div>
-                    <div *ngIf="registerform.get('last_name')?.getError('required')" class="alert alert-danger">first name is required</div>
+                    <div *ngIf="registerform.get('last_name')?.getError('required')" class="alert alert-danger">last name is required</div>
                 </div>
             </div>
             <div class="col-12 mt-3">

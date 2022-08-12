@@ -7,7 +7,7 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 const routes: Routes = [
   {path:"home",canActivate:[RoutingGuard],component:HomeComponent},
-  {path:"",component:SignupComponent},
+  {path:"",canActivate:[RoutingGuard],component:HomeComponent},
   {path:"signin",component:SigninComponent},
   {path:"signup",component:SignupComponent},
 {path:"**",component:NotfoundComponent}

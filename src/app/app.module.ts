@@ -23,7 +23,7 @@ import { FindPipe } from './find.pipe';
     NotfoundComponent,
     FindPipe
   ],
-  imports: [BrowserModule, AppRoutingModule,BrowserAnimationsModule,NgxSpinnerModule,HttpClientModule,ReactiveFormsModule,FormsModule ],
+  imports: [BrowserModule, AppRoutingModule,BrowserAnimationsModule,NgxSpinnerModule,HttpClientModule,ReactiveFormsModule,FormsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent],
